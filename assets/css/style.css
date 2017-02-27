@@ -1,0 +1,25 @@
+.container {
+    text-align: center;
+    width: 60%;
+    background-color: lightgreen;
+}
+
+.answer-container {
+   background-color: pink;
+   height: 50%;
+   width: 70%;
+   text-align: center;
+   margin: 0 auto;
+   border: white;
+}
+
+p {
+  background-color:pink;
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+p:hover {
+  border: 3px solid white;
+}
