@@ -6,7 +6,6 @@ var questionArray = [
     " Prunes are dried what?",
     " The hardest natural substance known is what?",
     " Sauerkraut is made from what finely cut vegetable?",
-    ""
 ]
 
 var answerAray = [
@@ -70,10 +69,8 @@ Game.prototype.start = function () {
 
 
 Game.prototype.evaluate = function() {
-  document
-    .querySelector('p')
-    .addEventListener('click', function(event) {
-      alert("I'm clicked!");
+    $('.options').click(function() {
+      alert($(this).attr('data-val'));
     })
 }
 
@@ -83,8 +80,7 @@ Game.prototype.flush = function() {
     questionContainer.innerHTML = currentQuestion;
     currentAnswerPack = answerAray[randomNumber];
     for (i in currentAnswerPack) {
-        $('.answer-options').append(`<p class="options" value="${currentAnswerPack[i]}">`+ i + "</p>");
-        // options.attr("value", currentAnswerPack[i]);;
+        $('.answer-options').append(`<p class="options" data-val="${currentAnswerPack[i]}">`+ i + "</p>");
         console.log(currentAnswerPack[i]);
      }
 }
