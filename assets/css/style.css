@@ -1,6 +1,7 @@
 .container {
     text-align: center;
     width: 60%;
+    height:400px;
     background-color: lightgreen;
 }
 
