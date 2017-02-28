@@ -88,19 +88,3 @@ Game.prototype.flush = function() {
 var game = new Game();
 game.start();
 
-
-/*=====  End of Game  ======*/
-
-
-/*==========================================
-=            Distrubute answers            =
-==========================================*/
-// function AnswerOptions(options) {
-//   this.element = this.renderOption();
-// }
-
-// AnswerOptions.prototype.renderOption = function(options) {
-//     var p = document.createElement('p');
-//     return p;
-// }
-/*=====  End of Distrubute answers  ======*/
