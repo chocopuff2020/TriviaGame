@@ -65,15 +65,27 @@ Game.prototype.start = function () {
     var that = this;
     randomNumber = Math.floor(Math.random()*questionArray.length);
     this.flush();
+    this.evaluate();
 }
+
+
+Game.prototype.evaluate = function() {
+  document
+    .querySelector('p')
+    .addEventListener('click', function(event) {
+      alert("I'm clicked!");
+    })
+}
+
 
 Game.prototype.flush = function() {
     currentQuestion = questionArray[randomNumber];
     questionContainer.innerHTML = currentQuestion;
     currentAnswerPack = answerAray[randomNumber];
     for (i in currentAnswerPack) {
-        $('.answer-options').append("<p>"+ i + "</p>")
-        console.log(i);
+        $('.answer-options').append(`<p class="options" value="${currentAnswerPack[i]}">`+ i + "</p>");
+        // options.attr("value", currentAnswerPack[i]);;
+        console.log(currentAnswerPack[i]);
      }
 }
 
