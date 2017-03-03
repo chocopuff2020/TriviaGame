@@ -46,83 +46,6 @@ var answerAray = [
 var questionContainer = document.querySelector('.question-container');
 var answerOption = document.querySelector('.answer-options');
 
-/*=============================
-=            TIMER            =
-=============================*/
-// var intervalId;
-// var stopwatch = {
-//   time: 0,
-
-//   reset: function() {
-//     stopwatch.time = 0;
-//     $("#display").html("00:00");
-//   },
-
-//   start: function() {
-//     intervalId = setInterval(stopwatch.count, 1000*30);
-//   },
-
-//   stop: function() {
-//     clearInterval(intervalId);
-//   },
-
-//   count: function() {
-//     stopwatch.time++;
-//     var converted = stopwatch.timeConverter(stopwatch.time);
-//     console.log(converted);
-//     $("#display").html(converted);
-//   },
-
-//   timeConverter: function(t) {
-//     var minutes = Math.floor(t / 60);
-//     var seconds = t - (minutes * 60);
-//     if (seconds < 10) {
-//       seconds = "0" + seconds;
-//     }
-//     if (minutes === 0) {
-//       minutes = "00";
-//     }
-//     else if (minutes < 10) {
-//       minutes = "0" + minutes;
-//     }
-//     return minutes + ":" + seconds;
-//   }
-// };
-
-
-var correctOption;
-
-
-// function startTimer(duration, display) {
-//     var timer = duration, minutes, seconds;
-//     setInterval(function () {
-//         minutes = parseInt(timer / 60, 10);
-//         seconds = parseInt(timer % 60, 10);
-
-//         minutes = minutes < 10 ? "0" + minutes : minutes;
-//         seconds = seconds < 10 ? "0" + seconds : seconds;
-
-//         display.textContent = minutes + ":" + seconds;
-
-//         if (--timer < 0) {
-//             timer = duration;
-//             Game.correctAnswer();
-
-//             alert("The correct answer is "+ correctOption);
-//         }
-//     }, 1000);
-// }
-
-// window.onload = function () {
-//     var countdownFrom = 30,
-//         display = document.querySelector('#display');
-//     startTimer(countdownFrom, display);
-// };
-
-/*=====  End of TIMER  ======*/
-
-
-
 
 /*============================
 =            Game            =
@@ -130,6 +53,10 @@ var correctOption;
 var currentQuestion;
 var currentAnswerPack;
 var randomNumber;
+var correctOption;
+var thirtyseconds = 30;
+var timerId;
+
 
 
 function Game() {
@@ -143,27 +70,64 @@ Game.prototype.start = function () {
     var that = this;
     randomNumber = Math.floor(Math.random()*questionArray.length);
     this.flush();
+    this.timer(thirtyseconds,display);
     this.evaluate();
     this.correctAnswer();
 
 }
 
 
+Game.prototype.timer = function(duration,display) {
+    var timer = duration, minutes, seconds;
+    var display = document.querySelector('#display');
+    // var id = setInterval();
+      function startTimer() {
+          $("#display").html("00:" + timer);
+
+          if (--timer < 0) {
+              timer = duration;
+              game.correctAnswer();
+              alert('The correct answer is : ' + correctOption);
+              game.reset();
+              game.start();
+          }
+      }
+
+      // setInterval(startTimer,1000);
+
+      timerId = setInterval(startTimer, 1000);
+
+
+}
+
+
 Game.prototype.evaluate = function() {
-    $('.options').click(function() {
-      alert($(this).attr('data-val'));
+    $('p').click(function() {
+      var clickedOption = $(this).attr('data-val');
+      console.log(clickedOption);
+      if ( clickedOption == "true") {
+        alert("You are correct!");
+        game.reset();
+        game.start();
+      } else {
+        alert("You're wrong");
+      }
+      // alert($(this).attr('data-val'));
     })
 }
+
+
+
 
 Game.prototype.correctAnswer = function() {
     for(key in currentAnswerPack) {
       if (currentAnswerPack[key] == true) {
         correctOption = key;
-        console.log(correctOption);
+        return correctOption;
+        // console.log(correctOption);
       }
     }
 }
-
 
 Game.prototype.flush = function() {
     currentQuestion = questionArray[randomNumber];
@@ -175,32 +139,43 @@ Game.prototype.flush = function() {
      }
 }
 
-Game.prototype.startTimer = function(duration, display) {
-        var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
-
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.textContent = minutes + ":" + seconds;
-
-            if (--timer < 0) {
-                timer = duration;
-                this.correctAnswer();
-                alert("The correct answer is "+ correctOption);
-            }
-        }, 1000);
+Game.prototype.reset = function() {
+   $('.question-container').empty();
+   $('.answer-options').empty();
+   clearInterval(timerId);
 }
+
+/*=============================
+=            TIMER            =
+=============================*/
+// var correctOption;
+
+
+// function startTimer(duration, display) {
+//     var timer = duration, minutes, seconds;
+//     setInterval(function () {
+//         $("#display").html("00:" + timer);
+
+//         if (--timer < 0) {
+//             timer = duration;
+//             game.correctAnswer();
+//             alert('The correct answer is : ' + correctOption);
+//             game.reset();
+//             game.start();
+//         }
+//     }, 1000);
+// }
+
+// window.onload = function () {
+//     var thirtyseconds = 10,
+//         display = document.querySelector('#display');
+//     startTimer(thirtyseconds, display);
+// };
+
+
+
+/*=====  End of TIMER  ======*/
+
 
 var game = new Game();
 game.start();
-
-window.onload = function () {
-            var countdownFrom = 30,
-            display = document.querySelector('#display');
-            Game.startTimer(countdownFrom, display);
-};
-
-
