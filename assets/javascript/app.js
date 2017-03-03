@@ -124,6 +124,8 @@ Game.prototype.correctAnswer = function() {
       if (currentAnswerPack[key] == true) {
         correctOption = key;
         return correctOption;
+        // $(".answer-options").empty();
+        // $('.answer-options').append(`<p class="question anim-typewriter"`+ correctOption + "</p>");
         // console.log(correctOption);
       }
     }
