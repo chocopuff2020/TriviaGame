@@ -45,7 +45,8 @@ var answerAray = [
 
 var questionContainer = document.querySelector('.question-container');
 var answerOption = document.querySelector('.answer-options');
-
+var node = document.createElement("h2");
+var textnode;
 
 /*============================
 =            Game            =
@@ -131,7 +132,17 @@ Game.prototype.correctAnswer = function() {
 
 Game.prototype.flush = function() {
     currentQuestion = questionArray[randomNumber];
-    questionContainer.innerHTML = currentQuestion;
+    // questionContainer.innerHTML = currentQuestion;
+
+    // questionContainer.appendChild(node);
+    // document.getElementsByTagName("h2")[0].setAttribute("class", "question anim-typewriter")
+    // textnode = document.createTextNode(currentQuestion);
+    // node.appendChild(textnode);
+
+    $('.question-container').append(`<p class="question anim-typewriter">` +  currentQuestion + `</p>`);
+
+
+
     currentAnswerPack = answerAray[randomNumber];
     for (i in currentAnswerPack) {
         $('.answer-options').append(`<p class="options" data-val="${currentAnswerPack[i]}">`+ i + "</p>");
