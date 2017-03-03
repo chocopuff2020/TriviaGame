@@ -8,7 +8,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
- -->
 <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
 <link href="https://fonts.googleapis.com/css?family=Cinzel|Dancing+Script|Homemade+Apple|Inconsolata|Nothing+You+Could+Do|Orbitron|Roboto+Mono|Rock+Salt|Syncopate" rel="stylesheet">
@@ -35,6 +34,45 @@
         <div class="row answer-options"></div>
   
     </div>
+
+
+  <!-- WEATHER -->
+  <div class="Weather row center">
+  <div class="Weather__main column column-center split-center"> <!-- Begin Main Bubble -->
+    
+    <h3>Local Weather</h3>
+    <h2 id="location">Your Location</h2>
+    <span id="temp">70</span>
+    <div class="row center column-center Weather__main-toggle"> <!-- Begin Unit Switch -->
+      <span>F</span>
+      <button id="unit-switch"><span id="unit-toggle"></span></button>
+      <span>C</span>
+    </div> <!-- End Unit Switch -->
+    
+  </div> <!-- End Main Bubble -->
+  
+  <div class="Weather__right column-split"> <!-- Begin Right Side Bubbles -->
+    
+    <div class="Weather__right-icon"> <!-- Begin Icon Bubble -->
+      <div class="column column-center"> <!-- Begin Current Coverage -->
+        <i id="icon" class="wi wi-day-sunny"></i>
+        <span id="coverage">Sunny</span>
+      </div> <!-- End Current Coverage -->
+    </div> <!-- End Icon Bubble -->
+    <div class="Weather__right-time column center column-center"> <!-- Begin Time Bubble -->
+      <span id="time">15:00</span>
+    </div> <!-- End Time Bubble -->
+    <div id="refresh" class="Weather__right-refresh column center column-center">
+      <span>Refresh</span>
+    </div>
+    
+  </div> <!-- End Right Side Bubbles -->
+</div>
+
+
+
+
+
 
 
   <script src="./assets/javascript/app.js"></script>
