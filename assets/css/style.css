@@ -1,8 +1,11 @@
+
+
 .container {
     text-align: center;
-    width: 60%;
+    width: 90%;
     height:400px;
-    background-color: lightgreen;
+    background-color: rgba(192,192,192,0.3);
+    padding-top: 30px;
 }
 
 .answer-container {
@@ -14,14 +17,112 @@
    border: white;
 }
 
-p {
+
+.link {
+  outline: none;
+  text-decoration: none;
+  position: relative;
+  font-size: 70px;
+  line-height: 1;
+  color: #9e9ba4;
+  display: inline-block;
+}
+.link--mallki {
+  font-weight: 800;
+  color: #ffffff;
+  font-family: 'Nothing You Could Do', cursive;
+  -webkit-transition: color 0.5s 0.25s;
+  transition: color 0.5s 0.25s;
+  overflow: hidden;
+}
+
+.link--mallki:hover {
+  -webkit-transition: none;
+  transition: none;
+  color: transparent;
+}
+
+.link--mallki::before {
+  content: '';
+  width: 100%;
+  height: 6px;
+  margin: -3px 0 0 0;
+  background: #ffffff;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translate3d(-100%,0,0);
+  transform: translate3d(-100%,0,0);
+  -webkit-transition: -webkit-transform 0.4s;
+  transition: transform 0.4s;
+  -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+  transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.link--mallki:hover::before {
+  -webkit-transform: translate3d(100%,0,0);
+  transform: translate3d(100%,0,0);
+}
+
+.link--mallki span {
+  position: absolute;
+  height: 50%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.link--mallki span::before {
+  content: attr(data-letters);
+  color: red;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  color: #FFFFFF;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+}
+
+.link--mallki span:nth-child(2) {
+  top: 50%;
+}
+
+.link--mallki span:first-child::before {
+  top: 0;
+  -webkit-transform: translate3d(0,100%,0);
+  transform: translate3d(0,100%,0);
+}
+
+.link--mallki span:nth-child(2)::before {
+  bottom: 0;
+  -webkit-transform: translate3d(0,-100%,0);
+  transform: translate3d(0,-100%,0);
+}
+
+.link--mallki:hover span::before {
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  -webkit-transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+  transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+}
+
+
+
+
+
+
+
+.options {
   background-color:pink;
   width: 50%;
   margin: 0 auto;
   margin-bottom: 10px;
 }
 
-p:hover {
+.options:hover {
   border: 3px solid white;
 }
 
@@ -44,15 +145,15 @@ body{
   padding: 4em;
   color: rgba(255,255,255,.75);
   font-family: 'Anonymous Pro', monospace;  
-  background-color: rgb(25,25,25);  
+  /*background-color: rgb(25,25,25); */ 
 }
 .question{
     position: relative;
     top: 50%;  
-    width: 24em;
+    /*width: 10%;*/
     margin: 0 auto;
     border-right: 2px solid rgba(255,255,255,.75);
-    font-size: 180%;
+    font-size: 100%;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
@@ -64,9 +165,10 @@ body{
   animation: typewriter 4s steps(44) 1s 1 normal both,
              blinkTextCursor 500ms steps(44) infinite normal;
 }
+
 @keyframes typewriter{
   from{width: 0;}
-  to{width: 24em;}
+  to{width: 70%;}
 }
 @keyframes blinkTextCursor{
   from{border-right-color: rgba(255,255,255,.75);}

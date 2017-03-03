@@ -94,7 +94,6 @@ Game.prototype.timer = function(duration,display) {
           }
       }
 
-      // setInterval(startTimer,1000);
 
       timerId = setInterval(startTimer, 1000);
 
@@ -113,7 +112,7 @@ Game.prototype.evaluate = function() {
       } else {
         alert("You're wrong");
       }
-      // alert($(this).attr('data-val'));
+
     })
 }
 
@@ -130,17 +129,10 @@ Game.prototype.correctAnswer = function() {
     }
 }
 
+
 Game.prototype.flush = function() {
     currentQuestion = questionArray[randomNumber];
-    // questionContainer.innerHTML = currentQuestion;
-
-    // questionContainer.appendChild(node);
-    // document.getElementsByTagName("h2")[0].setAttribute("class", "question anim-typewriter")
-    // textnode = document.createTextNode(currentQuestion);
-    // node.appendChild(textnode);
-
     $('.question-container').append(`<p class="question anim-typewriter">` +  currentQuestion + `</p>`);
-
 
 
     currentAnswerPack = answerAray[randomNumber];
@@ -155,37 +147,6 @@ Game.prototype.reset = function() {
    $('.answer-options').empty();
    clearInterval(timerId);
 }
-
-/*=============================
-=            TIMER            =
-=============================*/
-// var correctOption;
-
-
-// function startTimer(duration, display) {
-//     var timer = duration, minutes, seconds;
-//     setInterval(function () {
-//         $("#display").html("00:" + timer);
-
-//         if (--timer < 0) {
-//             timer = duration;
-//             game.correctAnswer();
-//             alert('The correct answer is : ' + correctOption);
-//             game.reset();
-//             game.start();
-//         }
-//     }, 1000);
-// }
-
-// window.onload = function () {
-//     var thirtyseconds = 10,
-//         display = document.querySelector('#display');
-//     startTimer(thirtyseconds, display);
-// };
-
-
-
-/*=====  End of TIMER  ======*/
 
 
 var game = new Game();
