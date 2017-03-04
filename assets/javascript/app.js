@@ -174,33 +174,36 @@ game.start();
       showFahrenheit: true,
     },
 
+
+    getCurrentId: function() {
+      return $.getJSON('https://api.ipify.org?format=json');
+    },
+
     getLocation: function() {
       var c = Weather.cache;
-      
-      if ( window.chrome ) {
-        $.getJSON('https://ip-api.com/json', function(json) {
-          c.lat = json.lat;
-          c.long = json.lon;
+      var _ip;
+      this.getCurrentId()
+        .then(function(response) {
+          return response.ip;
+        })
+        .then(function(ip) {
+          return $.getJSON('https://crossorigin.me/https://tools.keycdn.com/geo.json?host=' + ip);
+        })
+        .then(function(response) {
+          const geo = response.data.geo;
+          c.lat = geo.latitude;
+          c.long = geo.longitude;
+          c.location = geo.city;
+          c.zipcode = geo.postal_code;
           Weather.getInformation();
         });
-      } else {
-        if ( navigator.geolocation ) {
-          navigator.geolocation.getCurrentPosition(function(data) {
-            c.lat = data.coords.latitude;
-            c.long = data.coords.longitude;
-            Weather.getInformation();
-          });
-        }
-      }
-      
     },
 
     getInformation: function() {
       var c = Weather.cache;
-    
-      $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + c.lat + '&lon=' + c.long + '&units=imperial&appid=3acc16ffae9e45df92a064e41646355f', function(json) {
-        
-        c.location = json.name;
+
+      $.getJSON('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?zip=' + c.zipcode + '&units=imperial&appid=3acc16ffae9e45df92a064e41646355f',
+        function(json) {
         c.country = json.sys.country;
         c.fahrenheit = Math.round(json.main.temp);
         c.celcius = Math.round((c.fahrenheit - 32) * 5 / 9);
@@ -208,7 +211,7 @@ game.start();
         c.coverage = json.weather[0].main;
         c.sunrise = json.sys.sunrise;
         c.sunset = json.sys.sunset;
-        
+
         Weather.showMainInformation();
         Weather.showCurrentCoverage();
       });
