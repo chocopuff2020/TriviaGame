@@ -178,7 +178,7 @@ game.start();
       var c = Weather.cache;
       
       if ( window.chrome ) {
-        $.getJSON('http://ip-api.com/json', function(json) {
+        $.getJSON('https://ip-api.com/json', function(json) {
           c.lat = json.lat;
           c.long = json.lon;
           Weather.getInformation();
@@ -198,7 +198,7 @@ game.start();
     getInformation: function() {
       var c = Weather.cache;
     
-      $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + c.lat + '&lon=' + c.long + '&units=imperial&appid=3acc16ffae9e45df92a064e41646355f', function(json) {
+      $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + c.lat + '&lon=' + c.long + '&units=imperial&appid=3acc16ffae9e45df92a064e41646355f', function(json) {
         
         c.location = json.name;
         c.country = json.sys.country;
