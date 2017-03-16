@@ -79,36 +79,43 @@ Game.prototype.start = function () {
 
 
 Game.prototype.timer = function(duration,display) {
-    var timer = duration, minutes, seconds;
+    // minutes and seconds are undefined here
+    // also it's unnecessary to assign duration to timer when you can just work directly with duration
     var display = document.querySelector('#display');
     // var id = setInterval();
       function startTimer() {
-          $("#display").html("00:" + timer);
+          $("#display").html("00:" + duration);
 
-          if (--timer < 0) {
-              timer = duration;
-              game.correctAnswer();
+          if (--duration < 0) {
+              this.correctAnswer();
+              // it's a much smoother user experience to display this information in the html and not in an alert box
               alert('The correct answer is : ' + correctOption);
-              game.reset();
-              game.start();
+              // it may be a little more work, but you should use a more generic context reference such as `this`
+              // the reason being you don't want any of your methods to be dependent upon an outside variable name.
+              this.reset();
+              this.start();
           }
       }
 
-
-      timerId = setInterval(startTimer, 1000);
+      // `.bind` will set the context for the function call, which just needs to be `this` for startTimer's case
+      timerId = setInterval(startTimer.bind(this), 1000);
 
 
 }
 
 
 Game.prototype.evaluate = function() {
+    var that = this
     $('p').click(function() {
       var clickedOption = $(this).attr('data-val');
-      console.log(clickedOption);
+      // you wanna remove all your console.logs before pushing code to production
+      // console.log(clickedOption);
+      // it's best to always use strict equality checking - otherwsie people who 
+      // don't understand the nuances of type coercion checking may introduce pesky bugs 🐛
       if ( clickedOption == "true") {
         alert("You are correct!");
-        game.reset();
-        game.start();
+        that.reset();
+        that.start();
       } else {
         alert("You're wrong");
       }
@@ -139,8 +146,9 @@ Game.prototype.flush = function() {
 
     currentAnswerPack = answerAray[randomNumber];
     for (i in currentAnswerPack) {
-        $('.answer-options').append(`<p class="options" data-val="${currentAnswerPack[i]}">`+ i + "</p>");
-        console.log(currentAnswerPack[i]);
+        // May as well just use one long template string instead of a mix of templating and concatenation
+        $('.answer-options').append(`<p class="options" data-val="${currentAnswerPack[i]}">${i}</p>`);
+        // console.log(currentAnswerPack[i]);
      }
 }
 
@@ -159,7 +167,9 @@ game.start();
 /*===============================
 =            WEATHER            =
 ===============================*/
-
+// very cool stuff here!! I would recommend that you wrap your above code in an iife (immediately invoked function expression) as well though!
+// One of the most important reasons for that is security - because right now your above code can be tampered with through the console
+// by a malicious visitor to your trivia game 😮
 (function() {
 
   var Weather = {
@@ -199,7 +209,6 @@ game.start();
       var c = Weather.cache;
     
       $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + c.lat + '&lon=' + c.long + '&units=imperial&appid=3acc16ffae9e45df92a064e41646355f', function(json) {
-        
         c.location = json.name;
         c.country = json.sys.country;
         c.fahrenheit = Math.round(json.main.temp);
